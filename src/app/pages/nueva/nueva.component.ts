@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-nueva',
@@ -7,9 +10,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NuevaComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('imagenInputFile', {static: false}) imagenFile: ElementRef;
 
-  ngOnInit(): void {
+  imagen: File;
+  imagenMin: File;
+
+  constructor(
+    private imageService: ImageService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) { }
+
+  ngOnInit() {
   }
+
+  onFileChange(event) {
+    this.imagen = event.target.files[0];
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imagenMin = evento.target.result;
+    };
+    fr.readAsDataURL(this.imagen);
+  }
+
+  onUpload(): void {
+    this.spinner.show();
+    this.imageService.upload(this.imagen).subscribe(
+      data => {
+        this.spinner.hide();
+        this.router.navigate(['/']);
+      },
+      err => {
+        alert(err.error.mensaje);
+        this.spinner.hide();
+        this.reset();
+      }
+    );
+  }
+
+  reset(): void {
+    this.imagen = null;
+    this.imagenMin = null;
+    this.imagenFile.nativeElement.value = '';
+  }
+
 
 }

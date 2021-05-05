@@ -14,7 +14,7 @@ export class ImageService {
   constructor(private httpClient: HttpClient) { }
 
   public list(): Observable<Imagen[]> {
-    return this.httpClient.get<Imagen[]>(this.imagenURL + 'list');
+    return this.httpClient.get<Imagen[]>(this.imagenURL + 'images');
   }
 
   public upload(imagen: File): Observable<any> {
