@@ -2,6 +2,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
 
+## Dependencias principales
+
+<!-- bootstrap -->
+https://getbootstrap.com/
+<!-- bootswatch -->
+https://bootswatch.com/
+<!-- font awesome -->
+https://fontawesome.com/
+<!-- animate -->
+https://animate.style/
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
